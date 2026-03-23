@@ -1,0 +1,30 @@
+ruleset "4.0 to 5.0" {
+    // 1. Module Splits (The big one: QtGui split into QtWidgets, QtGui, QtPrintSupport)
+    replace "from PyQt4 import QtGui" "from PyQt5 import QtWidgets, QtGui, QtPrintSupport"
+    
+    // 2. Class Relocations (Common ones)
+    replace "QtGui.QMainWindow" "QtWidgets.QMainWindow"
+    replace "QtGui.QPushButton" "QtWidgets.QPushButton"
+    replace "QtGui.QVBoxLayout" "QtWidgets.QVBoxLayout"
+    replace "QtGui.QHBoxLayout" "QtWidgets.QHBoxLayout"
+    replace "QtGui.QWidget" "QtWidgets.QWidget"
+    replace "QtGui.QApplication" "QtWidgets.QApplication"
+    replace "QtGui.QLabel" "QtWidgets.QLabel"
+    replace "QtGui.QLineEdit" "QtWidgets.QLineEdit"
+    replace "QtGui.QTextEdit" "QtWidgets.QTextEdit"
+    replace "QtGui.QAction" "QtWidgets.QAction" // Note: In PyQt6 this moves again to QtGui
+    replace "QtGui.QFileDialog" "QtWidgets.QFileDialog"
+    replace "QtGui.QMessageBox" "QtWidgets.QMessageBox"
+    replace "QtGui.QDialog" "QtWidgets.QDialog"
+
+    // 3. Signal/Slot Old-Style to New-Style (Basic patterns)
+    // self.connect(self.button, SIGNAL("clicked()"), self.slot) -> self.button.clicked.connect(self.slot)
+    regex "self\\.connect\\((.*?),\\s*SIGNAL\\(\"(.*?)\\(\\)\"\\),\\s*(.*?)\\)" "$1.$2.connect($3)"
+    
+    // 4. QVariant (Automatically handled in PyQt5, often redundant)
+    replace ".toPyObject()" ""
+    replace "QVariant(" "("
+
+    // 5. QString (Automatically handled in PyQt5)
+    replace "QString(" "str("
+}

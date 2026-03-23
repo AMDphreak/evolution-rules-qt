@@ -1,3 +1,10 @@
 ruleset "5.12 to 5.15" {
-    replace "OLD_512" "NEW_515"
+    // 1. QRegExp to QRegularExpression transition
+    replace "QtCore.QRegExp" "QtCore.QRegularExpression"
+    
+    // 2. High DPI scaling (Attributes deprecated/automated in later 5.x)
+    replace "Qt.AA_EnableHighDpiScaling" "None // Deprecated/Automated"
+    
+    // 3. New-style signal connections for improved type safety
+    // (Mostly just ensuring the 5.15 features are reachable)
 }

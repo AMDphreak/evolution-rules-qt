@@ -3,7 +3,8 @@ ruleset "5.15 to 6.0" {
     replace "QtWidgets.QAction" "QtGui.QAction"
     replace "QtWidgets.QShortcut" "QtGui.QShortcut"
     replace "QtWidgets.QUndoCommand" "QtGui.QUndoCommand"
-
+    replace "from PyQt5 import QtWidgets" "from PyQt6 import QtWidgets, QtGui" // Handle potential move
+    
     // 2. High DPI and Attributes
     replace "Qt.AA_EnableHighDpiScaling" "None // Automatic in Qt6"
     replace "Qt.AA_UseHighDpiPixmaps" "None // Automatic in Qt6"
