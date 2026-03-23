@@ -24,8 +24,7 @@ Currently featuring comprehensive rules for **PyQt5 to PyQt6** migrations.
 rules/
 └── python/             <-- Language
     └── PyQt/           <-- Library/Binding
-        ├── 5.15-6.0.sdl  <-- Version Migration Rule
-        └── default/
+        └── 5.15-6.0.sdl  <-- Version Migration Rule
 ----
 
 == Usage with Evolution Engine
