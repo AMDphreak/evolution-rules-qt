@@ -1,10 +1,12 @@
-ruleset "5.12 to 5.15" {
-    // 1. QRegExp to QRegularExpression transition
+repo "https://github.com/amdphreak/equivalence-rules-code"
+ruleset "PyQt 5.12 to 5.15" {
+    aliases "5.13" "5.14"
+    
+    // QRegExp deprecation
     replace "QtCore.QRegExp" "QtCore.QRegularExpression"
+    note "QRegExp" "QRegExp is legacy; consider completing transition to QRegularExpression."
     
-    // 2. High DPI scaling (Attributes deprecated/automated in later 5.x)
-    replace "Qt.AA_EnableHighDpiScaling" "None // Deprecated/Automated"
-    
-    // 3. New-style signal connections for improved type safety
-    // (Mostly just ensuring the 5.15 features are reachable)
+    // High DPI scaling (Automated in 5.14+)
+    replace "Qt.AA_EnableHighDpiScaling" "None // Automated in PyQt 5.14+"
 }
+

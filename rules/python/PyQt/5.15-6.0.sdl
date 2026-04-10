@@ -1,9 +1,14 @@
+repo "https://github.com/amdphreak/equivalence-rules-code"
 ruleset "5.15 to 6.0" {
+    aliases "5.15" "5.15.1" "5.15.2"
+
     // 1. Module Renames (Core to Widgets/Gui split)
     replace "QtWidgets.QAction" "QtGui.QAction"
     replace "QtWidgets.QShortcut" "QtGui.QShortcut"
     replace "QtWidgets.QUndoCommand" "QtGui.QUndoCommand"
     replace "from PyQt5 import QtWidgets" "from PyQt6 import QtWidgets, QtGui" // Handle potential move
+    
+    warn "QtWidgets.QAction" "QAction moved from QtWidgets to QtGui in PyQt6."
     
     // 2. High DPI and Attributes
     replace "Qt.AA_EnableHighDpiScaling" "None // Automatic in Qt6"
@@ -28,6 +33,7 @@ ruleset "5.15 to 6.0" {
 
     // 4. Function Renames
     replace ".exec_()" ".exec()"
+    warn ".exec_()" "exec_() is removed in PyQt6 in favor of exec()."
     replace ".byteCount()" ".sizeInBytes()"
 
     // 5. Event methods
@@ -38,3 +44,4 @@ ruleset "5.15 to 6.0" {
     replace "qApp" "QApplication.instance()"
     replace "QNetworkRequest.FollowRedirectsAttribute" "QNetworkRequest.Attribute.RedirectPolicyAttribute"
 }
+

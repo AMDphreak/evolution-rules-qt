@@ -1,4 +1,7 @@
+repo "https://github.com/amdphreak/equivalence-rules-code"
 ruleset "4.0 to 5.0" {
+    aliases "4.1" "4.2" "4.3" "4.4" "4.5" "4.6" "4.7" "4.8" "4.9"
+
     // 1. Module Splits (The big one: QtGui split into QtWidgets, QtGui, QtPrintSupport)
     replace "from PyQt4 import QtGui" "from PyQt5 import QtWidgets, QtGui, QtPrintSupport"
     
@@ -12,13 +15,14 @@ ruleset "4.0 to 5.0" {
     replace "QtGui.QLabel" "QtWidgets.QLabel"
     replace "QtGui.QLineEdit" "QtWidgets.QLineEdit"
     replace "QtGui.QTextEdit" "QtWidgets.QTextEdit"
-    replace "QtGui.QAction" "QtWidgets.QAction" // Note: In PyQt6 this moves again to QtGui
+    replace "QtGui.QAction" "QtWidgets.QAction" 
     replace "QtGui.QFileDialog" "QtWidgets.QFileDialog"
     replace "QtGui.QMessageBox" "QtWidgets.QMessageBox"
     replace "QtGui.QDialog" "QtWidgets.QDialog"
 
     // 3. Signal/Slot Old-Style to New-Style (Basic patterns)
-    // self.connect(self.button, SIGNAL("clicked()"), self.slot) -> self.button.clicked.connect(self.slot)
+    warn "SIGNAL(" "Old-style signal/slot syntax (SIGNAL/SLOT) is removed in PyQt5. Use object.signal.connect(slot)."
+    warn "SLOT(" "Old-style signal/slot syntax (SIGNAL/SLOT) is removed in PyQt5. Use object.signal.connect(slot)."
     regex "self\\.connect\\((.*?),\\s*SIGNAL\\(\"(.*?)\\(\\)\"\\),\\s*(.*?)\\)" "$1.$2.connect($3)"
     
     // 4. QVariant (Automatically handled in PyQt5, often redundant)
@@ -27,4 +31,8 @@ ruleset "4.0 to 5.0" {
 
     // 5. QString (Automatically handled in PyQt5)
     replace "QString(" "str("
+
+    // 6. UI Files
+    warn "pyuic4" "Regenerate your .ui files using pyuic5."
 }
+

@@ -1,15 +1,15 @@
-= Evolution Rules: Code
+= Equivalence Rules: Code
 :toc:
 :icons: font
 
-Evolutionary rules for source code migrations between library and framework versions, designed for the link:https://github.com/AMDphreak/evolution-engine[Evolution Engine].
+Rules for source code migrations between library and framework versions, designed for the link:https://github.com/AMDphreak/equivalence-engine[Equivalence Engine].
 
 == Ecosystem
 
-* link:https://github.com/AMDphreak/evolution-engine[Evolution Engine] — The core binary that resolves and applies these rules.
-* link:https://github.com/AMDphreak/evolution-engine-action[Evolution Engine Action] — Modular GitHub Action to automate code evolution in CI pipelines.
-* link:https://github.com/AMDphreak/evolution-rules-code[Evolution Rules: Code] — This repository (PyQt, library-level migrations).
-* link:https://github.com/AMDphreak/evolution-rules-filesystem[Evolution Rules: Filesystem] — Rules for cross-OS path mapping and equivalency.
+* link:https://github.com/AMDphreak/equivalence-engine[Equivalence Engine] — The core binary that resolves and applies these rules.
+* link:https://github.com/AMDphreak/equivalence-engine-action[Equivalence Engine Action] — Modular GitHub Action to automate code adaptation in CI pipelines.
+* link:https://github.com/AMDphreak/equivalence-rules-code[Equivalence Rules: Code] — This repository (PyQt, library-level migrations).
+* link:https://github.com/AMDphreak/equivalence-rules-filesystem[Equivalence Rules: Filesystem] — Rules for cross-OS path mapping and equivalency.
 
 == Overview
 
@@ -27,14 +27,14 @@ rules/
         └── 5.15-6.0.sdl  <-- Version Migration Rule
 ----
 
-== Usage with Evolution Engine
+== Usage with Equivalence Engine
 
 To migrate a Python project from PyQt5 to PyQt6:
 
 [source,bash]
 ----
-evolution-engine -p . \
-  --rules-repo https://github.com/AMDphreak/evolution-rules-code \
+equivalence-engine -p . \
+  --rules-repo https://github.com/AMDphreak/equivalence-rules-code \
   --library python/PyQt \
   --from 5.15 --to 6.0 --in-place
 ----
